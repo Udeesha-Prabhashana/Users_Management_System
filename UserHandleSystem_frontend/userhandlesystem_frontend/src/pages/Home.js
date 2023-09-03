@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 
 export default function Home() {
 
-    
+  const [Users, setUsers] = useState([]);
+
+  useEffect(() => {     //when Home page is load , then will open inside of the useEffect hook
+    loadUsers();
+  }, []);          //if we do not give the empty array, then it will run unlimited time when page loard
+ 
+  const loadUsers =async() => {             //unless this request is completed so it wonn't excute next line without using 'async' and 'wait'
+    const result = await axios.get(`http://localhost:8080/users`);
+    setUsers(result.data)
+    console.log(result.data);
+  }
   return (
     <div className="container">
       <div className="py-4">
@@ -11,29 +21,22 @@ export default function Home() {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
+            {Users.map((User, index) =>(
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <th scope="row" key={index}>{index + 1}</th>
+                <td>{ User.name}</td>
+                <td>{User.username}</td>
+                <td>{ User.email}</td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            ))
+            }
           </tbody>
         </table>
       </div>

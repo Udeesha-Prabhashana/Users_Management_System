@@ -3,14 +3,12 @@ package com.udeesha.userhandlesystembackend.controller;
 import com.udeesha.userhandlesystembackend.model.User;
 import com.udeesha.userhandlesystembackend.repository.UserRepositary;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")  //use to connect frontend application adn backend application ,by give react local host port in frontend
 public class UserController {
 
     @Autowired
