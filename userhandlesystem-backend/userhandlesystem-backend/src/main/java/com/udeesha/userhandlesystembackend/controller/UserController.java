@@ -1,5 +1,6 @@
 package com.udeesha.userhandlesystembackend.controller;
 
+import com.udeesha.userhandlesystembackend.exception.UserNotFoundException;
 import com.udeesha.userhandlesystembackend.model.User;
 import com.udeesha.userhandlesystembackend.repository.UserRepositary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class UserController {
     @GetMapping("/users")
     List<User> getAllUsers() {
         return userRepositary.findAll();
+    }
+
+    @GetMapping("user/{id}")
+    User getUserById(@PathVariable Long id){
+        return userRepositary.findById(id)
+                .orElseThrow(()->new UserNotFoundException(id));
     }
 
 }
